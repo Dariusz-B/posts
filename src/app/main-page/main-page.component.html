@@ -1,0 +1,12 @@
+<div class="container">
+    <div *ngFor='let post of (posts$ | async).posts | slice:page*postsPerPage:page*postsPerPage+postsPerPage' [routerLink]="['/posts',post.id]" class="post">
+        <h1>{{post.title}}</h1>
+        <hr>
+        <div class="content">{{post.body}}</div>
+    </div>
+    <div class="pages">
+        <button *ngIf='page > 0' class="prev" (click)="moveToPage(page-1)">previous page</button>
+        <button *ngIf='page + 1 < 99/postsPerPage' class="next" (click)="moveToPage(page+1)">next page</button>
+    </div>
+</div>
+
