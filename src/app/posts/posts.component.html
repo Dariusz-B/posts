@@ -17,32 +17,39 @@
     </div>
 
     <form [formGroup]="newCommentForm" (ngSubmit)="formSubbmit()">
-      <p>
-        <span>
-          Name
-          <input
-            type="text"
-            formControlName="name"
-            [ngClass]="nameVal == null ? normal : nameVal ? 'valid' : 'invalid'"
-          />
-        </span>
-        <span>
-          Email
-          <input
-            type="email"
-            formControlName="email"
-            [ngClass]="emailVal == null ? normal : emailVal ? 'valid' : 'invalid'"
-          />
-        </span>
-      </p>
-      <p>
+      <div class="formControl">
+        Name
+        <input
+          type="text"
+          formControlName="name"
+          [ngClass]="newCommentForm.controls.name.invalid && submitted?'invalid':''"
+        />
+        <div class="error_text" *ngIf='newCommentForm.controls.name.invalid && submitted'>
+          Name is required!
+        </div>
+      </div>
+      <div class="formControl">
+        Email
+        <input
+          type="email"
+          formControlName="email"
+          [ngClass]="newCommentForm.controls.email.invalid && submitted?'invalid':''"
+        />
+        <div class="error_text" *ngIf='newCommentForm.controls.email.invalid && submitted'>
+          <div *ngIf='newCommentForm.controls.email.errors.required'>Email is required!</div>
+          <div *ngIf='newCommentForm.controls.email.errors.email'>Email is invalid!</div>
+        </div>
+      </div>
+      <div class="formControl">
         Comment
         <textarea
           formControlName="body"
-          [ngClass]="bodyVal == null ? normal : bodyVal ? 'valid' : 'invalid'"
+          [ngClass]="newCommentForm.controls.body.invalid && submitted?'invalid':''"
         ></textarea>
-      </p>
-
+        <div class="error_text" *ngIf='newCommentForm.controls.body.invalid && submitted'>
+          Comment is required!
+        </div>
+      </div>
       <button>Comment!</button>
     </form>
   </div>

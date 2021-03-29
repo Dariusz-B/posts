@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -11,27 +11,25 @@ import { PostFacade } from './../store/facades/postFacade';
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit {
-  constructor(private route: ActivatedRoute, private postFacade: PostFacade) {}
+  constructor(private route: ActivatedRoute, private postFacade: PostFacade, private formBuilder: FormBuilder) {}
 
   private id: string;
   post$: Observable<any>;
-
-  nameVal = null;
-  emailVal = null;
-  bodyVal = null;
-
-  newCommentForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
-    body: new FormControl('', [Validators.required]),
-  });
+  newCommentForm: FormGroup;
+  submitted: boolean = false;
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
     this.post$ = this.postFacade.getCurrentPost(this.id);
+
+    this.newCommentForm = this.formBuilder.group({
+      name: new FormControl('', [Validators.required]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      body: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnDestroy(): void {
@@ -39,20 +37,17 @@ export class PostsComponent implements OnInit {
   }
 
   formSubbmit() {
+    this.submitted = true;
+
+    if(this.newCommentForm.invalid){
+      return;
+    }
+
     let newComment = this.newCommentForm.value;
     newComment['postId'] = this.id;
-    newComment['id'] = null;
 
-    this.nameVal = this.newCommentForm.controls.name.valid;
-    this.emailVal = this.newCommentForm.controls.email.valid;
-    this.bodyVal = this.newCommentForm.controls.body.valid;
-
-    if (this.nameVal && this.emailVal && this.bodyVal) {
-      this.postFacade.sendComment(newComment);
-      this.newCommentForm.setValue({ name: '', email: '', body: '' });
-      this.nameVal = null;
-      this.emailVal = null;
-      this.bodyVal = null;
-    }
+    this.postFacade.sendComment(newComment);
+    this.newCommentForm.setValue({ name: '', email: '', body: '' });
+    this.submitted = false;
   }
 }
