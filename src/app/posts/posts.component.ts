@@ -20,7 +20,7 @@ export class PostsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.post$ = this.postFacade.getCurrentPost(this.id);
+    this.post$ = this.postFacade.getCurrentPost(parseInt( this.id));
 
     this.newCommentForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required]),
