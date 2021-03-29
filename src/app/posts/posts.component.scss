@@ -1,83 +1,82 @@
-.container{
+.container {
+  margin: auto;
+  margin-bottom: 50px;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 48px;
+
+  button {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .post {
+    border: solid 1px gray;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  .comments {
+    max-width: 1000px;
     margin: auto;
-    margin-bottom: 50px;
-    max-width: 1200px;
+
+    .comment {
+      margin-bottom: 10px;
+
+      .autor {
+        margin-left: 5px;
+        color: #444;
+        font-size: smaller;
+      }
+    }
+  }
+
+  form {
+    margin: 10px auto;
     display: flex;
-    flex-wrap: wrap;
-    padding: 0 48px;
+    flex-direction: column;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 20px;
+    max-width: 550px;
 
-    button{
+    p {
+      margin: 5px 0;
+    }
+
+    span {
+      input {
+        margin-left: 5px;
         font-size: 14px;
-        padding: 10px;
+      }
     }
 
-    .post{
-        border: solid 1px gray;
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
-
-        h1{
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
+    textarea {
+      resize: vertical;
+      min-height: 40px;
+      max-height: 350px;
+      width: 100%;
+      font-size: 14px;
+      padding: 0px;
     }
 
-    .comments{
-        max-width: 1000px;
-        margin: auto;
-
-        .comment{
-            margin-bottom: 10px;
-
-            .autor{
-                    margin-left: 5px;
-                    color: #444;
-                    font-size: smaller;
-            }
-        }
+    .normal {
+      border: 1px gray solid;
     }
 
-    form{
-        margin: 10px auto;
-        display: flex;
-        flex-direction: column;
-        border: 1px solid gray;
-        border-radius: 4px;
-        padding: 20px;
-        max-width: 550px;
-
-        p{
-            margin:5px 0;
-        }
-
-        span{
-            input{
-                margin-left: 5px;
-                font-size: 14px;
-            }
-        }
-
-        textarea{
-            resize: vertical;
-            min-height: 40px;
-            max-height: 350px;
-            width: 100%;
-            font-size: 14px;
-            padding: 0px;
-        }
-
-        .normal{
-            border: 1px gray solid;
-        }
-
-        .valid{
-            border: 1px green solid;
-        }
-
-        .invalid{
-            border: 1px red solid;
-        }
-
+    .valid {
+      border: 1px green solid;
     }
+
+    .invalid {
+      border: 1px red solid;
+    }
+  }
 }

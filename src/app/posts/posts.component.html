@@ -1,40 +1,49 @@
-<ng-container *ngIf='(post$ | async) as post'>
-<div class="container">
+<ng-container *ngIf="post$ | async as post">
+  <div class="container">
     <button [routerLink]="''">Return</button>
     <div class="post">
-        <h1>{{post.post.title}}</h1>
-        <hr>
-        <div class="content">
-            {{post.post.body}}
-        </div>
+      <h1>{{ post.post.title }}</h1>
+      <hr />
+      <div class="content">
+        {{ post.post.body }}
+      </div>
     </div>
 
     <div class="comments">
-        <div class="comment" *ngFor='let comment of post.comments'>
-            {{comment.body}}
-            <div class="autor">
-                - {{comment.name}} - {{comment.email}}
-            </div>
-        </div>
+      <div class="comment" *ngFor="let comment of post.comments">
+        {{ comment.body }}
+        <div class="autor">- {{ comment.name }} - {{ comment.email }}</div>
+      </div>
     </div>
 
     <form [formGroup]="newCommentForm" (ngSubmit)="formSubbmit()">
-        <p> 
-            <span>
-                Name <input type="text" formControlName="name" [ngClass]="nameVal == null ? normal : nameVal ? 'valid' : 'invalid'">
-            </span>
-            <span>
-                Email <input type="email" formControlName="email" [ngClass]="emailVal == null ? normal : emailVal ? 'valid' : 'invalid'"> 
-            </span> 
-        </p>
-        <p>
-            Comment <textarea formControlName="body" [ngClass]="bodyVal == null ? normal : bodyVal ? 'valid' : 'invalid'"></textarea>
-        </p>
-        
-        <button>Comment!</button>
+      <p>
+        <span>
+          Name
+          <input
+            type="text"
+            formControlName="name"
+            [ngClass]="nameVal == null ? normal : nameVal ? 'valid' : 'invalid'"
+          />
+        </span>
+        <span>
+          Email
+          <input
+            type="email"
+            formControlName="email"
+            [ngClass]="emailVal == null ? normal : emailVal ? 'valid' : 'invalid'"
+          />
+        </span>
+      </p>
+      <p>
+        Comment
+        <textarea
+          formControlName="body"
+          [ngClass]="bodyVal == null ? normal : bodyVal ? 'valid' : 'invalid'"
+        ></textarea>
+      </p>
+
+      <button>Comment!</button>
     </form>
-</div>
-
+  </div>
 </ng-container>
-
-
