@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Comment } from './../models/posts.model';
+import { Comment, Post } from './../models/posts.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,21 +10,21 @@ import { Comment } from './../models/posts.model';
 export class PostsService {
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<any> {
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
+  getPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
   }
 
-  getSinglePost(id: number): Observable<any> {
-    return this.http.get(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  getSinglePost(id: number): Observable<Post> {
+    return this.http.get<Post>(`https://jsonplaceholder.typicode.com/posts/${id}`);
   }
 
-  getComments(id: number): Observable<any> {
-    return this.http.get(
+  getComments(id: number): Observable<Comment[]> {
+    return this.http.get<Comment[]>(
       `https://jsonplaceholder.typicode.com/posts/${id}/comments`
     );
   }
 
-  addComment(comment: Comment): Observable<any> {
+  addComment(comment: Comment) {
     return this.http.post(
       `https://jsonplaceholder.typicode.com/posts/`,
       comment
