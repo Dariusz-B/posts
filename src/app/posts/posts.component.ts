@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CurrentPostState } from '../models/posts.model';
 
 import { PostFacade } from './../store/facades/postFacade';
 
@@ -14,7 +15,7 @@ export class PostsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private postFacade: PostFacade, private formBuilder: FormBuilder) {}
 
   private id: string;
-  post$: Observable<any>;
+  post$: Observable<CurrentPostState>;
   newCommentForm: FormGroup;
   submitted: boolean = false;
 
@@ -36,7 +37,7 @@ export class PostsComponent implements OnInit {
     this.postFacade.resetCurrentPost();
   }
 
-  formSubbmit() {
+  formSubbmit() : void {
     this.submitted = true;
 
     if(this.newCommentForm.invalid){
